@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile_backend
     volumes:
-      - /backend/app:/app
+      - ./app:/app
     env_file:
       - .env
     environment:
