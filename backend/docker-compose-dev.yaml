@@ -3,9 +3,10 @@ services:
   backend:
     container_name: backend
     build:
+      context: .
       dockerfile: Dockerfile_backend
     volumes:
-      - /backend:/backend
+      - /backend/app:/app
     env_file:
       - .env
     environment:
