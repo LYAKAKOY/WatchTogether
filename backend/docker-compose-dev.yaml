@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: Dockerfile_backend
     volumes:
-      - ./backend:/backend
+      - /backend:/backend
     env_file:
       - .env
     environment:
