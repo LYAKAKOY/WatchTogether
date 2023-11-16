@@ -8,7 +8,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy import UUID
 
-storage = FileSystemStorage(path="app/avatars")
+storage = FileSystemStorage(path="picture/avatars")
 
 
 class User(Base):
