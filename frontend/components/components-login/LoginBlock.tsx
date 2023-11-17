@@ -1,8 +1,14 @@
+"use client";
+
 import { Noto_Sans } from "next/font/google";
+import Image from "next/image";
+import { useState } from "react";
 
 const notosans = Noto_Sans({ subsets: ["latin"], weight: "300" });
 
 const LoginBlock = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <div
       className="absolute sm:w-1/2 w-[98%] sm:h-full h-[90%] bg-primary bg-opacity-[0.9] backdrop-filter backdrop-blur-xl 
@@ -29,13 +35,26 @@ const LoginBlock = () => {
             placeholder="Логин"
             className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
           />
-          <input
-            type="password"
-            name=""
-            id=""
-            placeholder="Пароль"
-            className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
-          />
+          <div className="relative flex items-center">
+            <input
+              type={show ? "text" : "password"}
+              name=""
+              id=""
+              placeholder="Пароль"
+              className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
+            />
+            <div
+              className="absolute right-[20px] cursor-pointer"
+              onClick={() => setShow(!show)}
+            >
+              <Image
+                width={18}
+                height={18}
+                src="/login/eye.png"
+                alt="eye icon"
+              />
+            </div>
+          </div>
           <div className="flex flex-col gap-[20px]">
             <button
               type="submit"

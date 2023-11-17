@@ -1,4 +1,5 @@
 import { Noto_Sans } from "next/font/google";
+import Password from "./Password";
 
 const notosans = Noto_Sans({ subsets: ["latin"], weight: "300" });
 
@@ -29,20 +30,8 @@ const RegisterBlock = () => {
             placeholder="Логин"
             className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
           />
-          <input
-            type="password"
-            name=""
-            id=""
-            placeholder="Пароль"
-            className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
-          />
-          <input
-            type="password"
-            name=""
-            id=""
-            placeholder="Повторите пароль"
-            className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
-          />
+          <Password placeholder="Пароль" id="password" />
+          <Password placeholder="Повторите пароль" id="repeat-password" />
           <div className="flex flex-col gap-[20px]">
             <button className="w-full bg-subprimary p-4 rounded-[12px] mt-[40px]">
               Зарегистрироваться
