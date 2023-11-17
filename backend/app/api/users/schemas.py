@@ -30,7 +30,6 @@ class CreateUser(BaseModel):
         return value
 
 class UpdateUser(BaseModel):
-    user_id: uuid.UUID
     nickname: str
     avatar: UploadFile
 
