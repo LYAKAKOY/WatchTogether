@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useMediaQuery } from "@mui/material";
 import Image from "next/image";
 

@@ -89,3 +89,10 @@ body {
   height: 100%;
   border-left: 1px solid #79797924;
 }
+
+.auth-bg {
+  background-image: url(../public/login/another-background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
