@@ -23,6 +23,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 from db.session import Base
 from db.users.models import User
+from db.tokens.models import Token
 
 target_metadata = Base.metadata
 

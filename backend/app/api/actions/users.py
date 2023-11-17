@@ -1,5 +1,4 @@
 import uuid
-
 from api.users.schemas import CreateUser
 from api.users.schemas import ShowUser
 from api.users.schemas import UpdateUser
