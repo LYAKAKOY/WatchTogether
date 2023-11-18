@@ -19,6 +19,3 @@ class User(Base):
     password = Column(String, nullable=False)
     nickname = Column(String, nullable=True, default=None)
     avatar = Column(FileType(storage=storage), nullable=True, default=None)
-    friends = Column(
-        ForeignKey(user_id, ondelete="NO ACTION"), nullable=True, default=None
-    )

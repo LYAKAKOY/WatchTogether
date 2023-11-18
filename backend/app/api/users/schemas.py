@@ -1,6 +1,6 @@
 import uuid
 
-from fastapi import HTTPException, UploadFile, File
+from fastapi import HTTPException, UploadFile
 from pydantic import BaseModel, field_validator
 
 
@@ -48,5 +48,5 @@ class UpdatePasswordUser(BaseModel):
 
 class ShowUser(TunedModel):
     user_id: uuid.UUID
-    nickname: str
-    avatar: File
+    nickname: str | None = None
+    avatar: UploadFile | None = None

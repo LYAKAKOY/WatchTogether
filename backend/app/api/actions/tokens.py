@@ -1,7 +1,6 @@
 import uuid
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from api.tokens.schemas import ShowToken, UpdateAccessToken
+from api.tokens.schemas import ShowToken, RefreshAccessToken
 from db.tokens.dals import TokenDAL
 
 
@@ -13,7 +12,7 @@ async def _create_token(user_id: uuid.UUID ,access_token: str, refresh_token: st
             return ShowToken(access_token=new_token.access_token, refresh_token=new_token.refresh_token)
 
 
-async def _update_access_token(body: UpdateAccessToken, access_token: str,  session: AsyncSession) -> ShowToken | None:
+async def _update_access_token(body: RefreshAccessToken, access_token: str,  session: AsyncSession) -> ShowToken | None:
     async with session.begin():
         token_dal = TokenDAL(session)
         token = await token_dal.update_access_token(access_token=access_token, refresh_token=body.refresh_token)

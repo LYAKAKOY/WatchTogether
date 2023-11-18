@@ -21,7 +21,7 @@ class UserDAL:
             return new_user
         except IntegrityError as error:
             await self.db_session.rollback()
-            return error.detail
+            return
 
     async def update_user(
         self,
@@ -42,7 +42,7 @@ class UserDAL:
                 return user[0]
         except IntegrityError as error:
             await self.db_session.rollback()
-            return error.detail
+            return
 
     async def set_password(self, login: str, password: str) -> User | None:
         query = (
@@ -51,6 +51,13 @@ class UserDAL:
             .values(password=password)
             .returning(User.user_id)
         )
+        res = await self.db_session.execute(query)
+        user = res.fetchone()
+        if user is not None:
+            return user[0]
+
+    async def get_user_by_login(self, login: str) -> User | None:
+        query = select(User).where(User.login == login)
         res = await self.db_session.execute(query)
         user = res.fetchone()
         if user is not None:
