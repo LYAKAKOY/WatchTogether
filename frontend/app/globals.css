@@ -19,6 +19,7 @@ body {
 }
 
 body {
+  overflow-x: hidden;
   color: rgb(var(--foreground-rgb));
   background: var(--background-color);
 }
@@ -95,4 +96,16 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#chat::-webkit-scrollbar {
+  background: #161616;
+  width: 7px;
+  border-radius: 5px;
+  margin-right: 4px;
+}
+
+#chat::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 4px;
 }

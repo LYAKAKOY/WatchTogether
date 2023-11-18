@@ -30,16 +30,24 @@ const Intro = () => {
         </video>
       ) : (
         <Image
-          className="w-full sm:h-[700px] h-[500px] absolute z-[-1] top-0 object-cover"
+          className="w-full sm:h-[700px] h-[500px] absolute z-[-1] top-0 object-cover left-0"
           src="/background.png"
           alt="background png"
-          width={800}
-          height={600}
+          width={1000}
+          height={900}
           priority
         />
       )}
 
       <div className="w-full max-w-[1640px] mx-auto sm:pt-[320px] pt-[210px]">
+        <Image
+          className="w-full sm:h-[700px] h-[500px] absolute z-[-4] top-0 object-cover left-0"
+          src="/background.png"
+          alt="background png"
+          width={1000}
+          height={900}
+          priority
+        />
         <div className="w-full h-full flex items-center justify-center">
           <h2 className="md:text-[56px] sm:text-[48px] text-[32px] font-bold md:max-w-[1200px] sm:max-w-[1000px] text-center">
             Комфортный просмотр ваших любимых фильмов вместе!

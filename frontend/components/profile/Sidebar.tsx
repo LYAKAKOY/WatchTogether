@@ -40,7 +40,7 @@ const Sidebar = () => {
       className={`${
         toggle ? "block max-w-[400px] w-full" : "max-w-[60px] w-full"
       } bg-primary h-full fixed left-0 overflow-y-auto top-0 z-10 ease duration-300
-      border-solid border-r-[1px] border-bordercolor border-opacity-[0.2]`}
+      border-solid border-r-[1px] border-bordercolor border-opacity-[0.1] overflow-x-hidden`}
       id="container"
     >
       <nav className={`py-[80px] z-10 h-full relative p-4`}>

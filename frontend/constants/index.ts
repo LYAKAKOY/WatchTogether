@@ -156,6 +156,27 @@ const friendsArray = [
   },
 ];
 
+const roomFriendsArray = [
+  {
+    nickname: "Kerak",
+  },
+  {
+    nickname: "PAnanasik",
+  },
+  {
+    nickname: "Jane",
+  },
+  {
+    nickname: "Dedulya",
+  },
+  {
+    nickname: "amogus",
+  },
+  {
+    nickname: "vova",
+  },
+];
+
 export {
   linksArray,
   categoriesArray,
@@ -164,4 +185,5 @@ export {
   serviceArray,
   textArray,
   friendsArray,
+  roomFriendsArray,
 };

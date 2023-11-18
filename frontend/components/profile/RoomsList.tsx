@@ -1,5 +1,6 @@
 "use client";
 
+import { textArray } from "@/constants";
 import { useMediaQuery } from "@mui/material";
 
 type ProfileCardProps = {
@@ -44,4 +45,22 @@ const ProfileCard = ({ text, href, id }: ProfileCardProps) => {
   }
 };
 
-export default ProfileCard;
+const RoomsList = () => {
+  return (
+    <div
+      className="w-full h-[400px] bg-primary rounded-[12px] sm:p-8 p-4
+            border-solid border-[1px] border-bordercolor border-opacity-[0.1]"
+    >
+      <a className="xs:text-[24px] text-[18px] font-medium" href="#">
+        Комнаты друзей
+      </a>
+      <div className="md:mt-[20px] mt-[10px] flex flex-wrap gap-[10px]">
+        {textArray.map((item, id) => (
+          <ProfileCard key={id} {...item} id={id} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default RoomsList;
