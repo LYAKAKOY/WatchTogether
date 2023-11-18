@@ -11,5 +11,5 @@ class RefreshAccessToken(BaseModel):
 
 
 class ShowToken(TunedModel):
-    access_token: str
-    refresh_token: str
+    access_token: str | None
+    refresh_token: str | None

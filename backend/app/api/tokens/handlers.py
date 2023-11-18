@@ -1,8 +1,9 @@
 from datetime import timedelta
 from logging import getLogger
 
-from api.actions.tokens import _create_token, _update_access_token
+from api.actions.tokens import _create_token, _update_access_token, _delete_token_by_user_id
 from api.tokens.schemas import ShowToken, RefreshAccessToken
+from db.users.models import User
 from security import JWT
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi.security import OAuth2PasswordRequestForm
@@ -36,7 +37,7 @@ async def login_for_access_token(
     token = await _create_token(user_id=user.user_id, access_token=access_token, refresh_token=refresh_token, session=db)
     return token
 
-@token_router.post("/refresh", response_model=ShowToken)
+@token_router.put("/refresh", response_model=ShowToken)
 async def login_for_access_token(
     body: RefreshAccessToken, db: AsyncSession = Depends(get_db)
 ) -> ShowToken:
@@ -47,4 +48,11 @@ async def login_for_access_token(
         expires_delta=access_token_expires
     )
     token = await _update_access_token(body, access_token, db)
+    return token
+
+@token_router.post("/logout", response_model=ShowToken)
+async def login_for_access_token(
+    current_user: User = Depends(get_current_user_from_token), db: AsyncSession = Depends(get_db)
+) -> ShowToken:
+    token = await _delete_token_by_user_id(user_id=current_user.user_id, session=db)
     return token
