@@ -27,10 +27,6 @@ const UserList = () => {
     e.preventDefault();
   }
 
-  function handleOnDropDelete(e: React.DragEvent<HTMLDivElement>) {
-    e.currentTarget.remove();
-  }
-
   return (
     <div className="flex sm:flex-row flex-col justify-between w-full gap-[20px]">
       <div
@@ -43,17 +39,10 @@ const UserList = () => {
             <div
               key={id}
               id={`${id}`}
-              className="rounded-[8px] h-[60px] flex items-center gap-[10px] bg-input py-2 px-4 cursor-pointer"
+              className="rounded-[8px] flex items-center gap-[10px] bg-input py-2 px-4 cursor-pointer"
               draggable
               onDragStart={(e) => handleOnDrag(e)}
             >
-              <Image
-                width={220}
-                height={220}
-                src="/profile/mnogoznaal.jpg"
-                alt="friend photo"
-                className="sm:block hidden h-[50px] w-[50px] rounded-full object-cover"
-              />
               <p>{item.nickname}</p>
             </div>
           ))}

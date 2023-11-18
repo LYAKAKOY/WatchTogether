@@ -11,7 +11,7 @@ const Chat = () => {
   }
   return (
     <div
-      className="lg:w-1/3 w-full lg:h-[600px] h-[300px] rounded-[12px] bg-primary relative py-4
+      className="lg:w-1/3 w-full lg:h-[610px] h-[300px] rounded-[12px] bg-primary relative py-4
   border-solid border-[1px] border-bordercolor border-opacity-[0.1]"
     >
       <div className="lg:h-[500px] h-[200px] overflow-y-auto" id="chat">
@@ -38,7 +38,7 @@ const Chat = () => {
       </div>
       <form action="#">
         <div
-          className="relative mt-[10px] left-0 right-0 mx-auto w-[90%] bg-input h-[60px]
+          className="relative mt-[15px] left-0 right-0 mx-auto w-[90%] bg-input h-[60px]
     rounded-[8px] flex items-center"
         >
           <input
