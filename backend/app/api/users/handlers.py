@@ -21,7 +21,6 @@ logger = getLogger(__name__)
 
 @user_router.post("/reg", response_model=ShowUser)
 async def create_user(user: CreateUser, db: AsyncSession = Depends(get_db)) -> ShowUser:
-    """Создать пользователя для менеджера паролей"""
     try:
         user = await _create_user(user, db)
         if user is None:
@@ -37,7 +36,6 @@ async def change_password(
     current_user: User = Depends(get_current_user_from_token),
     db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
-    """Получить пароль по заданному сервису"""
     try:
         user = await _update_user(user_id=current_user.user_id, body=user_update, session=db)
         if user is None:
@@ -46,12 +44,17 @@ async def change_password(
     except IntegrityError as err:
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
+
+@user_router.get("/profile", response_model=ShowUser)
+async def change_password(
+    current_user: User = Depends(get_current_user_from_token),
+) -> ShowUser:
+    return ShowUser(user_id=current_user.user_id, nickname=current_user.nickname, avatar=current_user.avatar)
 @user_router.put("/change_password", response_model=ShowUser)
 async def change_password(
     user_update: UpdatePasswordUser,
     db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
-    """Получить пароль по заданному сервису"""
     try:
         user = await _update_user_password(user_update, db)
         if user is None:
