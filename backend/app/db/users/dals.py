@@ -26,14 +26,13 @@ class UserDAL:
     async def update_user(
         self,
         user_id: str,
-        nickname: str | None = None,
-        avatar: UploadFile | None = None,
+        **kwargs
     ) -> User | None:
         query = (
             update(User)
             .where(User.user_id == user_id)
-            .values(nickname=nickname, avatar=avatar)
-            .returning(User.user_id)
+            .values(kwargs)
+            .returning(User)
         )
         try:
             res = await self.db_session.execute(query)

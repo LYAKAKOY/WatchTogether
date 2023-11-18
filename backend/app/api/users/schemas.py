@@ -30,8 +30,9 @@ class CreateUser(BaseModel):
         return value
 
 class UpdateUser(BaseModel):
-    nickname: str
-    avatar: UploadFile
+    nickname: str | None
+    email: str | None
+    avatar: UploadFile | None
 
 class UpdatePasswordUser(BaseModel):
     login: str
@@ -48,5 +49,6 @@ class UpdatePasswordUser(BaseModel):
 
 class ShowUser(TunedModel):
     user_id: uuid.UUID
+    email: str | None = None
     nickname: str | None = None
     avatar: UploadFile | None = None

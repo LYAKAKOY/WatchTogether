@@ -31,13 +31,14 @@ async def create_user(user: CreateUser, db: AsyncSession = Depends(get_db)) -> S
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
 @user_router.put("/profile", response_model=ShowUser)
-async def change_password(
-    user_update: UpdateUser,
+async def change_profile(
+    body: UpdateUser,
     current_user: User = Depends(get_current_user_from_token),
     db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
     try:
-        user = await _update_user(user_id=current_user.user_id, body=user_update, session=db)
+        update_user_data = body.model_dump(exclude_none=True)
+        user = await _update_user(user_id=current_user.user_id, update_user_data=update_user_data, session=db)
         if user is None:
             raise HTTPException(status_code=400, detail="Something went wrong")
         return user
@@ -46,17 +47,18 @@ async def change_password(
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
 @user_router.get("/profile", response_model=ShowUser)
-async def change_password(
+async def get_profile(
     current_user: User = Depends(get_current_user_from_token),
 ) -> ShowUser:
-    return ShowUser(user_id=current_user.user_id, nickname=current_user.nickname, avatar=current_user.avatar)
+    return ShowUser(user_id=current_user.user_id, email=current_user.nickname,
+                    nickname=current_user.nickname, avatar=current_user.avatar)
 @user_router.put("/change_password", response_model=ShowUser)
 async def change_password(
-    user_update: UpdatePasswordUser,
+    body: UpdatePasswordUser,
     db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
     try:
-        user = await _update_user_password(user_update, db)
+        user = await _update_user_password(body, db)
         if user is None:
             raise HTTPException(status_code=400, detail="The password is too easy")
         return user
