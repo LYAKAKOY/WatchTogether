@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 
-type PasswordProps = {
+type PasswordInputProps = {
   placeholder: string;
   id: string;
 };
 
-const Password = ({ placeholder, id }: PasswordProps) => {
+const PasswordInput = ({ placeholder, id }: PasswordInputProps) => {
   const [show, setShow] = useState(false);
   return (
     <div className="relative flex items-center">
@@ -32,4 +32,4 @@ const Password = ({ placeholder, id }: PasswordProps) => {
   );
 };
 
-export default Password;
+export default PasswordInput;

@@ -1,11 +1,11 @@
 import { Noto_Sans } from "next/font/google";
-import Password from "./Password";
+import PasswordInput from "../PasswordInput";
 
 const notosans = Noto_Sans({ subsets: ["latin"], weight: "300" });
 
 const RegisterBlock = () => {
   return (
-    <div
+    <section
       className="absolute sm:w-1/2 w-[98%] sm:h-full h-[90%] bg-primary bg-opacity-[0.9] backdrop-filter backdrop-blur-xl 
     right-0 sm:left-auto left-0 sm:mx-0 mx-auto sm:top-0 top-[20px] sm:bottom-auto bottom-[20px] sm:my-0 my-auto
     sm:rounded-[0px] rounded-[12px]"
@@ -30,8 +30,8 @@ const RegisterBlock = () => {
             placeholder="Логин"
             className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
           />
-          <Password placeholder="Пароль" id="password" />
-          <Password placeholder="Повторите пароль" id="repeat-password" />
+          <PasswordInput placeholder="Пароль" id="password" />
+          <PasswordInput placeholder="Повторите пароль" id="repeat-password" />
           <div className="flex flex-col gap-[20px]">
             <button className="w-full bg-subprimary p-4 rounded-[12px] mt-[40px]">
               Зарегистрироваться
@@ -40,7 +40,7 @@ const RegisterBlock = () => {
               <p className="text-gray-400">Уже есть аккаунт?</p>
               <a
                 href="/login"
-                className="text-subprimary underline underline-offset-[6px]"
+                className="text-link underline underline-offset-[6px] font-medium"
               >
                 Войдите
               </a>
@@ -48,7 +48,7 @@ const RegisterBlock = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

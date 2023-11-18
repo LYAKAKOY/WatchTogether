@@ -15,6 +15,8 @@ const config: Config = {
         bgprimary: "#0C0C0C",
         bordercolor: "#797979",
         input: "#242424",
+        link: "#5b0fd4",
+        profileText: "#666666",
       },
       screens: {
         xs: "480px",

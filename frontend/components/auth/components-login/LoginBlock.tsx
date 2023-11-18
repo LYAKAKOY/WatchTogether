@@ -1,16 +1,11 @@
-"use client";
-
 import { Noto_Sans } from "next/font/google";
-import Image from "next/image";
-import { useState } from "react";
+import PasswordInput from "../PasswordInput";
 
 const notosans = Noto_Sans({ subsets: ["latin"], weight: "300" });
 
 const LoginBlock = () => {
-  const [show, setShow] = useState(false);
-
   return (
-    <div
+    <section
       className="absolute sm:w-1/2 w-[98%] sm:h-full h-[90%] bg-primary bg-opacity-[0.9] backdrop-filter backdrop-blur-xl 
     right-0 sm:left-auto left-0 sm:mx-0 mx-auto sm:top-0 top-[20px] sm:bottom-auto bottom-[20px] sm:my-0 my-auto
     sm:rounded-[0px] rounded-[12px]"
@@ -35,26 +30,7 @@ const LoginBlock = () => {
             placeholder="Логин"
             className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
           />
-          <div className="relative flex items-center">
-            <input
-              type={show ? "text" : "password"}
-              name=""
-              id=""
-              placeholder="Пароль"
-              className="bg-input text-gray-400 h-[60px] w-full rounded-[8px] px-[20px] focus:outline-none focus:outline-subprimary"
-            />
-            <div
-              className="absolute right-[20px] cursor-pointer"
-              onClick={() => setShow(!show)}
-            >
-              <Image
-                width={18}
-                height={18}
-                src="/login/eye.png"
-                alt="eye icon"
-              />
-            </div>
-          </div>
+          <PasswordInput placeholder="Пароль" id="password" />
           <div className="flex flex-col gap-[20px]">
             <button
               type="submit"
@@ -66,7 +42,7 @@ const LoginBlock = () => {
               <p className="text-gray-400">Еще нет аккаунта?</p>
               <a
                 href="/registration"
-                className="text-subprimary underline underline-offset-[6px]"
+                className="text-link underline underline-offset-[6px] font-medium"
               >
                 Зарегистрируйтесь
               </a>
@@ -74,7 +50,7 @@ const LoginBlock = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

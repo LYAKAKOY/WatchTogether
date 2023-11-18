@@ -1,4 +1,4 @@
-import LoginBlock from "@/components/components-login/LoginBlock";
+import LoginBlock from "@/components/auth/components-login/LoginBlock";
 
 const page = () => {
   return (

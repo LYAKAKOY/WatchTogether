@@ -1,5 +1,3 @@
-"use client";
-
 import BeginSection from "@/components/BeginSection";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";

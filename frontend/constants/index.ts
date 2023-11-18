@@ -108,4 +108,60 @@ const serviceArray = [
   },
 ];
 
-export { linksArray, categoriesArray, stepsArray, faqArray, serviceArray };
+// profile
+
+const textArray = [
+  {
+    text: "Смотрим фнаф",
+    href: "#",
+  },
+  {
+    text: "Смотрим фнаф",
+    href: "#",
+  },
+  {
+    text: "Смотрим фнаф",
+    href: "#",
+  },
+  {
+    text: "Смотрим фнаф",
+    href: "#",
+  },
+  {
+    text: "Смотрим фнаф",
+    href: "#",
+  },
+];
+
+const friendsArray = [
+  {
+    src: "/profile/mnogoznaal.jpg",
+    alt: "friend photo",
+  },
+  {
+    src: "/profile/mnogoznaal.jpg",
+    alt: "friend photo",
+  },
+  {
+    src: "/profile/mnogoznaal.jpg",
+    alt: "friend photo",
+  },
+  {
+    src: "/profile/mnogoznaal.jpg",
+    alt: "friend photo",
+  },
+  {
+    src: "/profile/mnogoznaal.jpg",
+    alt: "friend photo",
+  },
+];
+
+export {
+  linksArray,
+  categoriesArray,
+  stepsArray,
+  faqArray,
+  serviceArray,
+  textArray,
+  friendsArray,
+};
