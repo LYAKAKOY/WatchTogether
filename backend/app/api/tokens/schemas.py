@@ -6,7 +6,7 @@ class TunedModel(BaseModel):
         from_attributes = True
 
 
-class UpdateToken(BaseModel):
+class UpdateAccessToken(BaseModel):
     refresh_token: str
 
 
