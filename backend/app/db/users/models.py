@@ -4,7 +4,6 @@ from db.session import Base
 from fastapi_storages import FileSystemStorage
 from fastapi_storages.integrations.sqlalchemy import FileType
 from sqlalchemy import Column
-from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy import UUID
 

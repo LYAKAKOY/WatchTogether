@@ -1,12 +1,10 @@
 import uuid
 
 from db.tokens.models import Token
-from sqlalchemy import delete, select
+from sqlalchemy import delete
 from sqlalchemy import update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from db.users.models import User
 
 
 class TokenDAL:
@@ -26,7 +24,7 @@ class TokenDAL:
             return new_token
         except IntegrityError as error:
             await self.db_session.rollback()
-            return error.detail
+            return
 
     async def update_access_token(
         self, access_token: str, refresh_token: str
@@ -35,16 +33,17 @@ class TokenDAL:
             update(Token)
             .where(Token.refresh_token == refresh_token)
             .values(access_token=access_token)
-            .returning(Token.user)
+            .returning(Token)
         )
         try:
             res = await self.db_session.execute(query)
             token = res.fetchone()
+            await self.db_session.commit()
             if token is not None:
                 return token[0]
         except IntegrityError as error:
             await self.db_session.rollback()
-            return error.detail
+            return
 
     async def delete_token_by_user_id(self, user_id: uuid.UUID) -> Token | str:
         query = delete(Token).where(Token.user_id == user_id).returning(Token.user_id)
@@ -55,4 +54,4 @@ class TokenDAL:
                 return token[0]
         except IntegrityError as error:
             await self.db_session.rollback()
-            return error.detail
+            return

@@ -13,7 +13,7 @@ from jose import JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token/login")
 
 async def _get_user_by_user_id_for_auth(user_id: uuid.UUID, session: AsyncSession):
     async with session.begin():

@@ -17,7 +17,7 @@ async def _update_access_token(body: RefreshAccessToken, access_token: str,  ses
         token_dal = TokenDAL(session)
         token = await token_dal.update_access_token(access_token=access_token, refresh_token=body.refresh_token)
         if token is not None:
-            return ShowToken(access_token=access_token, refresh_token=token.refresh_token)
+            return ShowToken(access_token=token.access_token, refresh_token=token.refresh_token)
 
 async def _delete_token_by_user_id(user_id: uuid.UUID, session: AsyncSession) -> ShowToken | None:
     async with session.begin():
