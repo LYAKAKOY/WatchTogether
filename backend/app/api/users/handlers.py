@@ -99,13 +99,13 @@ async def get_profile_avatar(
     return StreamingResponse(open(current_user.avatar, "rb"), media_type="image/jpeg")
 
 @user_router.post("/send_code_to_email", response_class=JSONResponse)
-async def send_code_to_email(email: VerifyEmail) -> JSONResponse:
+async def send_code_to_email(body: VerifyEmail) -> JSONResponse:
     confirmation_code = "".join(random.choice("0123456789") for _ in range(4))
     html_message = f"""<p>Hi, this is a WatchTogether. Your code is <b>{confirmation_code}</b></p> """
 
     message = MessageSchema(
-        subject="FastAPI-Mail module",
-        recipients=[email],
+        subject="Verify Email",
+        recipients=[body.email],
         body=html_message,
         subtype=MessageType.html)
 
