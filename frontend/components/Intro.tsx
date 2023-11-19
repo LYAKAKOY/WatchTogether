@@ -33,7 +33,7 @@ const Intro = () => {
           className="w-full sm:h-[700px] h-[500px] absolute z-[-1] top-0 object-cover left-0"
           src="/background.png"
           alt="background png"
-          width={1000}
+          width={2000}
           height={900}
           priority
         />
@@ -44,7 +44,7 @@ const Intro = () => {
           className="w-full sm:h-[700px] h-[500px] absolute z-[-4] top-0 object-cover left-0"
           src="/background.png"
           alt="background png"
-          width={1000}
+          width={2000}
           height={900}
           priority
         />

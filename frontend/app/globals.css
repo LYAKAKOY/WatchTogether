@@ -39,8 +39,8 @@ body {
 }
 
 .arrow-animation {
-  animation: arrow-move 0.1s linear forwards;
-  transition: all 0.1s ease;
+  animation: arrow-move 0.2s linear forwards;
+  transition: all 0.2s ease;
 }
 
 @keyframes arrow-move {
@@ -53,8 +53,8 @@ body {
 }
 
 .arrow-animation-back {
-  animation: arrow-move-back 0.1s linear forwards;
-  transition: all 0.1s ease;
+  animation: arrow-move-back 0.2s linear forwards;
+  transition: all 0.2s ease;
 }
 
 @keyframes arrow-move-back {

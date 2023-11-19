@@ -75,14 +75,14 @@ const ServiceMenu = () => {
         <div className="grid grid-cols-2 gap-[20px] mb-[30px] p-2 md:w-[80%] w-full py-[20px]">
           {serviceArray.map((item) => (
             <Link
-              href="#"
+              href={`/about/${item.href}`}
               className="flex justify-between items-center md:min-w-[400px] min-w-[100px] h-[60px] ease duration-300 
               hover:bg-gray-400 hover:bg-opacity-[0.05] p-4 rounded-[8px]"
               key={item.title}
             >
               <div>
                 <h2 className="text-[16px] font-medium">{item.title}</h2>
-                <p className="text-[16px] text-gray-400">{item.text}</p>
+                <p className="text-[16px] text-gray-400">{item.tip}</p>
               </div>
             </Link>
           ))}
@@ -118,7 +118,8 @@ const Navbar = () => {
           WatchTogether
         </a>
         <div className="sm:flex hidden gap-[20px]">
-          <Link href="#">Смотреть</Link>
+          {/* TODO: If user is logged in navigate him to profile page */}
+          <Link href="/registration">Смотреть</Link>
           <div
             className="flex gap-[5px] items-center cursor-pointer"
             onClick={() => setServiceActive(!serviceActive)}

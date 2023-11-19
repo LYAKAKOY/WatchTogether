@@ -34,7 +34,7 @@ const FaqItem = ({ question, answer }: FaqItemProps) => {
         </div>
       </div>
       {active && (
-        <div className="h-full mb-[30px] max-w-[900px] text-animation text-[18px]">
+        <div className="h-full mb-[30px] text-animation text-[18px]">
           <p className="sm:text-[16px] text-[14px]">{answer}</p>
         </div>
       )}

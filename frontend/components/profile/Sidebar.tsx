@@ -21,7 +21,8 @@ const BlockUrls = () => {
     <div className="flex flex-col gap-[10px]">
       {item.map((item, index) => (
         <Link
-          className="w-full px-4 bg-input h-[60px] text-[18px] font-medium flex items-center rounded-[8px]"
+          className="w-full px-4 bg-input h-[60px] text-[18px] font-medium flex items-center rounded-[8px]
+          ease duration-300 hover:bg-subprimary"
           href={item.url}
           key={index}
           onClick={() => setActive(!active)}
