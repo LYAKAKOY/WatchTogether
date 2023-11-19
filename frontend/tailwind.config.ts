@@ -10,11 +10,11 @@ const config: Config = {
     extend: {
       colors: {
         primary: "#1B1B1B",
-        subprimary: "#480CA8",
+        subprimary: "#5D12D6",
         bgprimary: "#0C0C0C",
         bordercolor: "#797979",
         input: "#242424",
-        link: "#5b0fd4",
+        link: "#8940FF",
         profileText: "#666666",
       },
       screens: {

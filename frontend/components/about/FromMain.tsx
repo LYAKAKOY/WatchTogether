@@ -16,11 +16,11 @@ const FromMain = ({ title }: FromMainProps) => {
         />
       </a>
       <div className="flex gap-[4px]">
-        <Image width={15} height={15} src="/about/arrow.svg" alt="arrow icon" />
+        <Image width={15} height={15} src="/about/navigation-arrow.svg" alt="arrow icon" />
         <p className="text-profileText sm:text-[16px] text-[14px]">О сервисе</p>
       </div>
       <div className="flex gap-[4px]">
-        <Image width={15} height={15} src="/about/arrow.svg" alt="arrow icon" />
+        <Image width={15} height={15} src="/about/navigation-arrow.svg" alt="arrow icon" />
         <p className="text-profileText sm:text-[16px] text-[14px]">{title}</p>
       </div>
     </div>

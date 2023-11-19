@@ -40,7 +40,7 @@ const NavbarMenu = () => {
             <Image
               width={15}
               height={15}
-              src="./arrow.svg"
+              src="/arrow.svg"
               alt="arrow icon"
               className="flex cursor-pointer rotate-[-90deg]"
             />
@@ -53,7 +53,7 @@ const NavbarMenu = () => {
             <Image
               width={15}
               height={15}
-              src="./arrow.svg"
+              src="/arrow.svg"
               alt="arrow icon"
               className="flex cursor-pointer rotate-[-90deg]"
             />
@@ -82,13 +82,13 @@ const ServiceMenu = () => {
             >
               <div>
                 <h2 className="text-[16px] font-medium">{item.title}</h2>
-                <p className="text-[16px] text-gray-400">{item.tip}</p>
+                <p className="text-[16px] text-profileText">{item.tip}</p>
               </div>
             </Link>
           ))}
         </div>
         <div className="min-h-[200px] w-[20%] border-navbar relative md:flex hidden items-center justify-center flex-col py-[30px] text-center ml-[20px]">
-          <h2 className="text-gray-400 mb-[15px]">
+          <h2 className="text-profile Text mb-[15px]">
             Не нашли то, что искали? Мы поможем!
           </h2>
           <button
@@ -114,7 +114,7 @@ const Navbar = () => {
     absolute top-0 left-0 right-0 z-10"
     >
       <div className="w-full h-full flex justify-between items-center px-[30px]">
-        <a href="#" className={`${prompt.className} text-[18px]`}>
+        <a href="/" className={`${prompt.className} text-[18px]`}>
           WatchTogether
         </a>
         <div className="sm:flex hidden gap-[20px]">
@@ -136,7 +136,7 @@ const Navbar = () => {
         </div>
         <a
           href="/registration"
-          className="sm:block hidden bg-link p-4 rounded-[8px] w-[150px] text-center ease duration-300 hover:bg-subprimary"
+          className="sm:block hidden bg-subprimary p-4 rounded-[8px] w-[150px] text-center ease duration-300 hover:bg-subprimary"
         >
           Аккаунт
         </a>

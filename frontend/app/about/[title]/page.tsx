@@ -51,17 +51,16 @@ const page = ({ params }: { params: { title: string } }) => {
           title={`${serviceArray[4].title}`}
           subtitle={`${serviceArray[4].tip}`}
           href={`${params.title}`}
-          array={features}
         />
       );
-    // case "feedback":
-    //   return (
-    //     <MainInfo
-    //       title={`${serviceArray[5].title}`}
-    //       subtitle={`${serviceArray[5].tip}`}
-    //       array={}
-    //     />
-    //   );
+    case "feedback":
+      return (
+        <MainInfo
+          title={`${serviceArray[5].title}`}
+          subtitle={`${serviceArray[5].tip}`}
+          href={`${params.title}`}
+        />
+      );
     default:
       return <div>page {params.title}</div>;
   }
