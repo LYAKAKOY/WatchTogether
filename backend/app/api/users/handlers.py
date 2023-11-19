@@ -1,10 +1,14 @@
 from logging import getLogger
+import random
+from typing import List
 
-from starlette.responses import StreamingResponse
+from fastapi_mail import ConnectionConfig, FastMail, MessageType, MessageSchema
+from pydantic import BaseModel, EmailStr
+from starlette.responses import StreamingResponse, JSONResponse
 from api.actions.auth import get_current_user_from_token
 from api.actions.users import _create_user, _update_user
 from api.actions.users import _update_user_password
-from api.users.schemas import CreateUser, UpdatePasswordUser
+from api.users.schemas import CreateUser, UpdatePasswordUser, VerifyEmail
 from api.users.schemas import ShowUser
 from api.users.schemas import UpdateUser
 from db.session import get_db
@@ -15,6 +19,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.users.models import User, storage
+from settings import email_conf
 
 user_router = APIRouter()
 
@@ -92,3 +97,18 @@ async def get_profile_avatar(
     current_user: User = Depends(get_current_user_from_token),
 ) -> StreamingResponse:
     return StreamingResponse(open(current_user.avatar, "rb"), media_type="image/jpeg")
+
+@user_router.post("/send_code_to_email", response_class=JSONResponse)
+async def send_code_to_email(email: VerifyEmail) -> JSONResponse:
+    confirmation_code = "".join(random.choice("0123456789") for _ in range(4))
+    html_message = f"""<p>Hi, this is a WatchTogether. Your code is <b>{confirmation_code}</b></p> """
+
+    message = MessageSchema(
+        subject="FastAPI-Mail module",
+        recipients=[email],
+        body=html_message,
+        subtype=MessageType.html)
+
+    fm = FastMail(email_conf)
+    await fm.send_message(message)
+    return JSONResponse(status_code=200, content={"message": "code has been sent"})

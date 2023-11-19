@@ -41,6 +41,8 @@ class UpdatePasswordUser(BaseModel):
             raise HTTPException(status_code=422, detail="password is too easy")
         return value
 
+class VerifyEmail(BaseModel):
+    email: EmailStr
 
 class ShowUser(TunedModel):
     user_id: uuid.UUID
