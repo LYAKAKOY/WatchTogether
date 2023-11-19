@@ -2,8 +2,7 @@ import uuid
 
 from db.session import Base
 from fastapi_storages import FileSystemStorage
-from fastapi_storages.integrations.sqlalchemy import FileType
-from sqlalchemy import Column
+from sqlalchemy import Column, Boolean
 from sqlalchemy import String
 from sqlalchemy import UUID
 
@@ -18,4 +17,5 @@ class User(Base):
     password = Column(String, nullable=False)
     nickname = Column(String, nullable=True, default=None)
     email = Column(String, nullable=True, default=None, unique=True)
+    verified_email = Column(Boolean, default=False)
     avatar = Column(String, nullable=True, default=None)

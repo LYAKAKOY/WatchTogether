@@ -1,7 +1,6 @@
 from logging import getLogger
 
 from starlette.responses import StreamingResponse
-
 from api.actions.auth import get_current_user_from_token
 from api.actions.users import _create_user, _update_user
 from api.actions.users import _update_user_password
