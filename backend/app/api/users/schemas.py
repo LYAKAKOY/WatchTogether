@@ -1,7 +1,7 @@
 import uuid
 
 from fastapi import HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from pydantic import field_validator
 
 
@@ -28,7 +28,7 @@ class CreateUser(BaseModel):
 
 class UpdateUser(BaseModel):
     nickname: str | None
-    email: str | None
+    email: EmailStr | None
 
 
 class UpdatePasswordUser(BaseModel):
@@ -44,6 +44,6 @@ class UpdatePasswordUser(BaseModel):
 
 class ShowUser(TunedModel):
     user_id: uuid.UUID
-    email: str | None = None
+    email: EmailStr | None = None
     nickname: str | None = None
     avatar: str | None = None

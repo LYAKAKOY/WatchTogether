@@ -3,8 +3,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from api.tokens.schemas import ShowToken, RefreshAccessToken
 from db.tokens.dals import TokenDAL
 
-
-async def _create_token(user_id: uuid.UUID ,access_token: str, refresh_token: str, session: AsyncSession) -> ShowToken | None:
+async def _get_token(user_id: uuid.UUID , session: AsyncSession) -> ShowToken | None:
+    async with session.begin():
+        token_dal = TokenDAL(session)
+        token = await token_dal.get_token_by_user_id(user_id=user_id)
+        if token is not None:
+            return ShowToken(access_token=token.access_token, refresh_token=token.refresh_token)
+async def _create_token(user_id: uuid.UUID , access_token: str, refresh_token: str, session: AsyncSession) -> ShowToken | None:
     async with session.begin():
         token_dal = TokenDAL(session)
         new_token = await token_dal.create_token(user_id=user_id, access_token=access_token, refresh_token=refresh_token)

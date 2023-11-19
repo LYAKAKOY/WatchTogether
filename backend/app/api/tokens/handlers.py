@@ -1,7 +1,7 @@
 from datetime import timedelta
 from logging import getLogger
 
-from api.actions.tokens import _create_token, _update_access_token, _delete_token_by_user_id
+from api.actions.tokens import _create_token, _update_access_token, _delete_token_by_user_id, _get_token
 from api.tokens.schemas import ShowToken, RefreshAccessToken
 from db.users.models import User
 from security import JWT
@@ -26,6 +26,9 @@ async def login_for_access_token(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
         )
+    token = await _get_token(user_id=user.user_id, session=db)
+    if token is not None:
+        return token
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = JWT.create_token(
         data={"sub": str(user.user_id), "other_custom_data": []},
@@ -33,10 +36,10 @@ async def login_for_access_token(
     )
     refresh_token_expires = timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES)
     refresh_token = JWT.create_token(data={"sub": str(user.user_id), "other_custom_data": []},
-        expires_delta=refresh_token_expires)
-    token = await _create_token(user_id=user.user_id, access_token=access_token, refresh_token=refresh_token, session=db)
-    return token
-
+                                     expires_delta=refresh_token_expires)
+    new_token = await _create_token(user_id=user.user_id, access_token=access_token, refresh_token=refresh_token, session=db)
+    if new_token is not None:
+        return new_token
 @token_router.put("/refresh", response_model=ShowToken)
 async def login_for_access_token(
     body: RefreshAccessToken, db: AsyncSession = Depends(get_db)

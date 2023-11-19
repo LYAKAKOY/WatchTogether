@@ -72,7 +72,7 @@ async def change_avatar_profile(
 async def get_profile(
     current_user: User = Depends(get_current_user_from_token),
 ) -> ShowUser:
-    return ShowUser(user_id=current_user.user_id, email=current_user.nickname,
+    return ShowUser(user_id=current_user.user_id, email=current_user.email,
                     nickname=current_user.nickname, avatar=current_user.avatar)
 @user_router.put("/change_password", response_model=ShowUser)
 async def change_password(
@@ -88,7 +88,7 @@ async def change_password(
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
-@user_router.get("profile/avatar", response_model=StreamingResponse)
+@user_router.get("profile/avatar", response_class=StreamingResponse)
 async def get_profile_avatar(
     current_user: User = Depends(get_current_user_from_token),
 ) -> StreamingResponse:
