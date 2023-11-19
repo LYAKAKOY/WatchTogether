@@ -1,7 +1,6 @@
 import uuid
 
 from fastapi import HTTPException
-from fastapi import UploadFile
 from pydantic import BaseModel
 from pydantic import field_validator
 
@@ -27,11 +26,9 @@ class CreateUser(BaseModel):
             raise HTTPException(status_code=422, detail="password is too easy")
         return value
 
-
 class UpdateUser(BaseModel):
     nickname: str | None
     email: str | None
-    avatar: UploadFile | None = None
 
 
 class UpdatePasswordUser(BaseModel):
@@ -49,4 +46,4 @@ class ShowUser(TunedModel):
     user_id: uuid.UUID
     email: str | None = None
     nickname: str | None = None
-    avatar: UploadFile | None = None
+    avatar: str | None = None

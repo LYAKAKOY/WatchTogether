@@ -1,4 +1,7 @@
 from logging import getLogger
+
+from starlette.responses import StreamingResponse
+
 from api.actions.auth import get_current_user_from_token
 from api.actions.users import _create_user, _update_user
 from api.actions.users import _update_user_password
@@ -6,13 +9,13 @@ from api.users.schemas import CreateUser, UpdatePasswordUser
 from api.users.schemas import ShowUser
 from api.users.schemas import UpdateUser
 from db.session import get_db
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
 from fastapi import Depends
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.users.models import User
+from db.users.models import User, storage
 
 user_router = APIRouter()
 
@@ -46,6 +49,25 @@ async def change_profile(
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
+@user_router.put("/profile/avatar", response_model=ShowUser)
+async def change_avatar_profile(
+    avatar: UploadFile = File(...),
+    current_user: User = Depends(get_current_user_from_token),
+    db: AsyncSession = Depends(get_db)
+) -> ShowUser:
+    try:
+        file_path = f"picture/avatars/{avatar.filename}"
+
+        file = storage.write(avatar.file, file_path)
+
+        user = await _update_user(user_id=current_user.user_id, update_user_data={"avatar": file}, session=db)
+        if user is None:
+            raise HTTPException(status_code=400, detail="Something went wrong")
+        return user
+    except IntegrityError as err:
+        logger.error(err)
+        raise HTTPException(status_code=503, detail=f"Database error: {err}")
+
 @user_router.get("/profile", response_model=ShowUser)
 async def get_profile(
     current_user: User = Depends(get_current_user_from_token),
@@ -65,3 +87,9 @@ async def change_password(
     except IntegrityError as err:
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
+
+@user_router.get("profile/avatar", response_model=StreamingResponse)
+async def get_profile_avatar(
+    current_user: User = Depends(get_current_user_from_token),
+) -> StreamingResponse:
+    return StreamingResponse(open(current_user.avatar, "rb"), media_type="image/jpeg")

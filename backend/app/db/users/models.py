@@ -18,4 +18,4 @@ class User(Base):
     password = Column(String, nullable=False)
     nickname = Column(String, nullable=True, default=None)
     email = Column(String, nullable=True, default=None, unique=True)
-    avatar = Column(FileType(storage=storage), nullable=True, default=None)
+    avatar = Column(String, nullable=True, default=None)
