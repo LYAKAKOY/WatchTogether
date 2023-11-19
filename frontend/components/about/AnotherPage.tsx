@@ -16,10 +16,10 @@ const PageCard = ({ tip, href, title }: PageCardProps) => {
     <Link
       href={href}
       className="border-bordercolor border-solid border-[1px] border-opacity-[0.2] rounded-[12px] min-w-[200px] min-h-[100px] p-4
-          ease duration-300 hover:bg-subprimary"
+          ease duration-300 hover:bg-subprimary group"
     >
-      <h2 className="text-white text-medium">{title}</h2>
-      <p className="text-profileText max-w-[250px]">{tip}</p>
+      <h2 className="text-white text-medium ease duration-300 group-hover:font-semibold">{title}</h2>
+      <p className="text-profileText max-w-[250px] ease duration-300 group-hover:text-white">{tip}</p>
     </Link>
   );
 };

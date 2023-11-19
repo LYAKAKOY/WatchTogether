@@ -6,6 +6,7 @@ import { Prompt } from "next/font/google";
 import Navbar from "../Navbar";
 import Contacts from "./Contacts";
 import Reveals from "./Reveals";
+import Link from "next/link";
 
 type MainInfoProps = {
   array?: Array<{ text?: string; title?: string; tip?: string; href?: string }>;
@@ -62,6 +63,17 @@ const MainInfo = ({ title, subtitle, array, href }: MainInfoProps) => {
         <div className="flex flex-col gap-[20px]">
           {typeof array !== "undefined" &&
             array.map((item, id) => <AboutCard key={id} {...item} />)}
+        </div>
+
+        <div className="flex w-full h-[50px] mt-[30px]">
+          <Link
+            href="/registration"
+            className="w-full h-full py-2 px-4 bg-subprimary
+        rounded-[8px] text-center font-medium flex items-center justify-center
+        ease duration-300 hover:bg-link"
+          >
+            Присоединиться
+          </Link>
         </div>
 
         <div className="w-full sm:h-[400px] h-[300px] mt-[40px] relative flex justify-center items-center">
