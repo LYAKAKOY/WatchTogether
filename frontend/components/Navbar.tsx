@@ -133,9 +133,12 @@ const Navbar = () => {
             />
           </div>
         </div>
-        <button className="sm:block hidden bg-subprimary p-4 rounded-[8px] w-[150px]">
+        <a
+          href="/registration"
+          className="sm:block hidden bg-link p-4 rounded-[8px] w-[150px] text-center ease duration-300 hover:bg-subprimary"
+        >
           Аккаунт
-        </button>
+        </a>
         <Image
           width={30}
           height={30}

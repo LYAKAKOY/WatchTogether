@@ -1,4 +1,6 @@
 const YourRooms = () => {
+  const roomsArray = ["Я говноед"];
+
   return (
     <div
       className="w-full h-[400px] bg-primary rounded-[12px] sm:p-8 p-4 mb-[20px]
@@ -16,7 +18,25 @@ const YourRooms = () => {
         </button>
       </div>
       <div className="md:mt-[20px] mt-[10px] flex flex-wrap gap-[10px]">
-        <h2 className="text-profileText">Здесь пока пустовато...</h2>
+        {roomsArray.length < 1 && (
+          <h2 className="text-profileText">Здесь пока пустовато...</h2>
+        )}
+        {roomsArray.map((item, id) => (
+          <div
+            className="sm:max-w-[200px] max-w-none w-full h-[100px] rounded-[8px] bg-input relative"
+            key={id}
+          >
+            <p className="absolute left-[10px] top-[10px] text-profileText font-medium">
+              {id}/4
+            </p>
+            <a
+              className="absolute left-[10px] bottom-[10px] font-medium"
+              href={`/room/${id}`}
+            >
+              {item}
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );

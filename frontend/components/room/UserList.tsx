@@ -1,7 +1,6 @@
 "use client";
 
 import { roomFriendsArray } from "@/constants";
-import Image from "next/image";
 import { useState } from "react";
 
 const UserList = () => {

@@ -38,11 +38,11 @@ const LoginBlock = () => {
             >
               Войти
             </button>
-            <div className="sm:text-[16px] sm:text-left text-[14px] text-center w-full">
+            <div className="sm:text-[16px] sm:text-left text-[14px] text-center">
               <div className="flex xs:flex-row flex-col gap-[5px]">
                 <p className="text-gray-400">Забыли пароль?</p>
                 <a
-                  href="/registration"
+                  href="/"
                   className="text-link underline underline-offset-[6px] font-medium"
                 >
                   Восстановить пароль
