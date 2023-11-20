@@ -2,7 +2,7 @@ import asyncio
 import uuid
 from typing import Any
 from typing import Generator
-
+from hashing import Hasher
 import asyncpg
 import pytest
 import settings
@@ -25,7 +25,7 @@ test_async_session = sessionmaker(
     autoflush=False,
 )
 
-CLEAN_TABLES = []
+CLEAN_TABLES = ["users"]
 
 
 @pytest.fixture(scope="session")
@@ -63,7 +63,7 @@ async def clean_tables(async_session_test):
     async with async_session_test() as session:
         async with session.begin():
             for table_for_cleaning in CLEAN_TABLES:
-                await session.execute(text(f"TRUNCATE TABLE {table_for_cleaning}"))
+                await session.execute(text(f"TRUNCATE TABLE {table_for_cleaning} CASCADE "))
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -99,7 +99,7 @@ async def create_user(asyncpg_pool):
             """INSERT INTO users VALUES ($1, $2, $3)""",
             user_id,
             settings.TEST_LOGIN,
-            settings.TEST_PASSWORD,
+            Hasher.get_password_hash(settings.TEST_PASSWORD),
         )
         return user_id
 

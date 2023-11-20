@@ -31,7 +31,7 @@ async def create_user(user: CreateUser, db: AsyncSession = Depends(get_db)) -> S
     try:
         user = await _create_user(user, db)
         if user is None:
-            raise HTTPException(status_code=400, detail="the login is already occupied")
+            raise HTTPException(status_code=400, detail="this login already exists")
         return user
     except IntegrityError as err:
         logger.error(err)
