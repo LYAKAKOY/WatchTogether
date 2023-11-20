@@ -27,3 +27,6 @@ email_conf = ConnectionConfig(
     USE_CREDENTIALS=True,
     VALIDATE_CERTS=True
 )
+
+TEST_LOGIN: str = env.str("TEST_LOGIN", default="WatchTogetherLogin")
+TEST_PASSWORD: str = env.str("TEST_PASSWORD", default="WatchTogetherPassword")
