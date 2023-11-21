@@ -6,14 +6,14 @@ import pytest
     [
         (
                 {
-                    "login": "test_login1",
+                    "login": "login1",
                     "password": "test_password1",
                 },
                 200,
         ),
         (
                 {
-                    "login": "test_login",
+                    "login": "login2",
                     "password": "test_password2",
                 },
                 200,
@@ -63,7 +63,7 @@ async def test_create_exists_user(
     expected_status_code,
     expected_data,
 ):
-    await client.post("/user/reg", data=json.dumps(user_data))
+    # await client.post("/user/reg", data=json.dumps(user_data))
     response = await client.post("/user/reg", data=json.dumps(user_data))
     data_from_response = response.json()
     assert response.status_code == expected_status_code

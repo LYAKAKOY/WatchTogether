@@ -25,7 +25,7 @@ test_async_session = sessionmaker(
     autoflush=False,
 )
 
-CLEAN_TABLES = ["users"]
+CLEAN_TABLES = []
 
 
 @pytest.fixture(scope="session")

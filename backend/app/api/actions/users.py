@@ -1,6 +1,6 @@
 import uuid
 
-from api.users.schemas import CreateUser
+from api.users.schemas import CreateUser, AddFriend
 from api.users.schemas import ShowUser
 from api.users.schemas import UpdatePasswordUser
 from db.users.dals import UserDAL
@@ -24,7 +24,7 @@ async def _create_user(body: CreateUser, session: AsyncSession) -> ShowUser | No
 
 
 async def _update_user_password(
-    body: UpdatePasswordUser, session: AsyncSession
+        body: UpdatePasswordUser, session: AsyncSession
 ) -> ShowUser | None:
     async with session.begin():
         user_dal = UserDAL(session)
@@ -35,8 +35,19 @@ async def _update_user_password(
             return ShowUser(user_id=user.user_id)
 
 
+async def _add_friend_to_user(user_id: uuid.UUID, body: AddFriend, session: AsyncSession) -> ShowUser | None:
+    async with session.begin():
+        user_dal = UserDAL(session)
+        user = await user_dal.add_friend(user_id=user_id, friend_id=body.friend_id)
+        if user is not None:
+            return ShowUser(user_id=user.user_id,
+                            email=user.email,
+                            nickname=user.nickname,
+                            avatar=user.avatar)
+
+
 async def _update_user(
-    user_id: uuid.UUID, update_user_data: dict, session: AsyncSession
+        user_id: uuid.UUID, update_user_data: dict, session: AsyncSession
 ) -> ShowUser | None:
     async with session.begin():
         user_dal = UserDAL(session)

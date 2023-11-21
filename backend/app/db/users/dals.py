@@ -24,9 +24,9 @@ class UserDAL:
             return
 
     async def update_user(
-        self,
-        user_id: str,
-        **kwargs
+            self,
+            user_id: str,
+            **kwargs
     ) -> User | None:
         query = (
             update(User)
@@ -60,6 +60,21 @@ class UserDAL:
         except IntegrityError as error:
             await self.db_session.rollback()
             return
+
+    async def add_friend(self, user_id: uuid.UUID, friend_id: uuid.UUID):
+        user = await self.get_user_by_user_id(user_id=user_id)
+        friend = await self.get_user_by_user_id(user_id=friend_id)
+        if user is not None and friend is not None:
+            try:
+                user.friends.append(friend)
+                self.db_session.add(user)
+                await self.db_session.flush()
+                await self.db_session.commit()
+                return user
+            except IntegrityError as error:
+                await self.db_session.rollback()
+                pass
+
     async def get_user_by_login(self, login: str) -> User | None:
         query = select(User).where(User.login == login)
         res = await self.db_session.execute(query)

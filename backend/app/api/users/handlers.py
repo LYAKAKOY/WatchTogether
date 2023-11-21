@@ -6,9 +6,9 @@ from fastapi_mail import ConnectionConfig, FastMail, MessageType, MessageSchema
 from pydantic import BaseModel, EmailStr
 from starlette.responses import StreamingResponse, JSONResponse
 from api.actions.auth import get_current_user_from_token
-from api.actions.users import _create_user, _update_user
+from api.actions.users import _create_user, _update_user, _add_friend_to_user
 from api.actions.users import _update_user_password
-from api.users.schemas import CreateUser, UpdatePasswordUser, VerifyEmail
+from api.users.schemas import CreateUser, UpdatePasswordUser, VerifyEmail, AddFriend
 from api.users.schemas import ShowUser
 from api.users.schemas import UpdateUser
 from db.session import get_db
@@ -37,11 +37,12 @@ async def create_user(user: CreateUser, db: AsyncSession = Depends(get_db)) -> S
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
+
 @user_router.put("/profile", response_model=ShowUser)
 async def change_profile(
-    body: UpdateUser,
-    current_user: User = Depends(get_current_user_from_token),
-    db: AsyncSession = Depends(get_db)
+        body: UpdateUser,
+        current_user: User = Depends(get_current_user_from_token),
+        db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
     try:
         update_user_data = body.model_dump(exclude_none=True)
@@ -53,11 +54,28 @@ async def change_profile(
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
+
+@user_router.put("/add_friend", response_model=ShowUser)
+async def change_profile(
+        body: AddFriend,
+        current_user: User = Depends(get_current_user_from_token),
+        db: AsyncSession = Depends(get_db)
+) -> ShowUser:
+    try:
+        user = await _add_friend_to_user(user_id=current_user.user_id, body=body, session=db)
+        if user is None:
+            raise HTTPException(status_code=400, detail="Something went wrong")
+        return user
+    except IntegrityError as err:
+        logger.error(err)
+        raise HTTPException(status_code=503, detail=f"Database error: {err}")
+
+
 @user_router.put("/profile/avatar", response_model=ShowUser)
 async def change_avatar_profile(
-    avatar: UploadFile = File(...),
-    current_user: User = Depends(get_current_user_from_token),
-    db: AsyncSession = Depends(get_db)
+        avatar: UploadFile = File(...),
+        current_user: User = Depends(get_current_user_from_token),
+        db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
     try:
         file_path = f"picture/avatars/{avatar.filename}"
@@ -72,16 +90,19 @@ async def change_avatar_profile(
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
+
 @user_router.get("/profile", response_model=ShowUser)
 async def get_profile(
-    current_user: User = Depends(get_current_user_from_token),
+        current_user: User = Depends(get_current_user_from_token),
 ) -> ShowUser:
     return ShowUser(user_id=current_user.user_id, email=current_user.email,
                     nickname=current_user.nickname, avatar=current_user.avatar)
+
+
 @user_router.put("/change_password", response_model=ShowUser)
 async def change_password(
-    body: UpdatePasswordUser,
-    db: AsyncSession = Depends(get_db)
+        body: UpdatePasswordUser,
+        db: AsyncSession = Depends(get_db)
 ) -> ShowUser:
     try:
         user = await _update_user_password(body, db)
@@ -92,11 +113,13 @@ async def change_password(
         logger.error(err)
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
+
 @user_router.get("profile/avatar", response_class=StreamingResponse)
 async def get_profile_avatar(
-    current_user: User = Depends(get_current_user_from_token),
+        current_user: User = Depends(get_current_user_from_token),
 ) -> StreamingResponse:
     return StreamingResponse(open(current_user.avatar, "rb"), media_type="image/jpeg")
+
 
 @user_router.post("/send_code_to_email", response_class=JSONResponse)
 async def send_code_to_email(body: VerifyEmail) -> JSONResponse:

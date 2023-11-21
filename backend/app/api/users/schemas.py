@@ -26,6 +26,7 @@ class CreateUser(BaseModel):
             raise HTTPException(status_code=422, detail="password is too easy")
         return value
 
+
 class UpdateUser(BaseModel):
     nickname: str | None
     email: EmailStr | None
@@ -41,8 +42,15 @@ class UpdatePasswordUser(BaseModel):
             raise HTTPException(status_code=422, detail="password is too easy")
         return value
 
+
+class AddFriend(BaseModel):
+    friend_id: uuid.UUID
+
+
 class VerifyEmail(BaseModel):
     email: EmailStr
+
+
 class ShowUser(TunedModel):
     user_id: uuid.UUID
     email: EmailStr | None = None
