@@ -1,13 +1,18 @@
 import uuid
+from typing import List
+
 from password_strength import PasswordStats
 from fastapi import HTTPException
 from pydantic import BaseModel, EmailStr
 from pydantic import field_validator
 
+from db.users.models import User
+
 
 class TunedModel(BaseModel):
     class Config:
         from_attributes = True
+        arbitrary_types_allowed = True
 
 
 class CreateUser(BaseModel):

@@ -1,9 +1,13 @@
+import json
+import logging
 from logging import getLogger
 import random
 from typing import List
 
 from fastapi_mail import ConnectionConfig, FastMail, MessageType, MessageSchema
 from pydantic import BaseModel, EmailStr
+from sqlalchemy import select
+from sqlalchemy.util import greenlet_spawn
 from starlette.responses import StreamingResponse, JSONResponse
 from api.actions.auth import get_current_user_from_token
 from api.actions.users import _create_user, _update_user, _add_friend_to_user
@@ -18,7 +22,7 @@ from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.users.models import User, storage
+from db.users.models import User, storage, friendship
 from settings import email_conf
 
 user_router = APIRouter()
@@ -91,12 +95,11 @@ async def change_avatar_profile(
         raise HTTPException(status_code=503, detail=f"Database error: {err}")
 
 
-@user_router.get("/profile", response_model=ShowUser)
+@user_router.get("/profile")
 async def get_profile(
-        current_user: User = Depends(get_current_user_from_token),
-) -> ShowUser:
-    return ShowUser(user_id=current_user.user_id, email=current_user.email,
-                    nickname=current_user.nickname, avatar=current_user.avatar)
+        current_user: User = Depends(get_current_user_from_token)
+):
+    return await greenlet_spawn(current_user.friends.all)
 
 
 @user_router.put("/change_password", response_model=ShowUser)

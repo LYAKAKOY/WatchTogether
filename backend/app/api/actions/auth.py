@@ -15,10 +15,12 @@ from starlette import status
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token/login")
 
+
 async def _get_user_by_user_id_for_auth(user_id: uuid.UUID, session: AsyncSession):
     async with session.begin():
         user_dal = UserDAL(session)
         return await user_dal.get_user_by_user_id(user_id=user_id)
+
 
 async def _get_user_by_login_for_auth(login: str, session: AsyncSession):
     async with session.begin():
@@ -27,7 +29,7 @@ async def _get_user_by_login_for_auth(login: str, session: AsyncSession):
 
 
 async def authenticate_user(
-    login: str, password: str, db: AsyncSession
+        login: str, password: str, db: AsyncSession
 ) -> User | None:
     user = await _get_user_by_login_for_auth(login=login, session=db)
     if user is None:
@@ -38,7 +40,7 @@ async def authenticate_user(
 
 
 async def get_current_user_from_token(
-    token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
+        token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
 ) -> User | None:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

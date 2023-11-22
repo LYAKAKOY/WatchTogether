@@ -4,15 +4,15 @@ from sqlalchemy.orm import relationship
 
 from db.session import Base
 from fastapi_storages import FileSystemStorage
-from sqlalchemy import Column, Boolean, ForeignKey
+from sqlalchemy import Column, Boolean, ForeignKey, select
 from sqlalchemy import String
 from sqlalchemy import UUID, Table
 
 storage = FileSystemStorage(path="picture/avatars")
 
 friendship = Table('friendship', Base.metadata,
-                   Column('user_id', UUID(as_uuid=True), ForeignKey('users.user_id')),
-                   Column('friend_id', UUID(as_uuid=True), ForeignKey('users.user_id'))
+                   Column('user_id', UUID(as_uuid=True), ForeignKey('users.user_id'), primary_key=True),
+                   Column('friend_id', UUID(as_uuid=True), ForeignKey('users.user_id'), primary_key=True)
                    )
 
 
@@ -30,4 +30,5 @@ class User(Base):
                            secondary=friendship,
                            primaryjoin=user_id == friendship.c.user_id,
                            secondaryjoin=user_id == friendship.c.friend_id,
-                           backref='friends_of')
+                           foreign_keys=[friendship.c.user_id, friendship.c.friend_id],
+                           backref='friends_of', lazy="dynamic")
